@@ -1,424 +1,94 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DIGZ PIZZA - ESFIHA</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
-    rel="stylesheet"
-  />
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Missão do Dia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="hero">
-    <nav class="navbar container">
-      <div class="brand">
-        <span class="brand-main">DIGZ</span>
-        <span class="brand-sub">PIZZA • ESFIHA</span>
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
+
+  <main class="app">
+    <section class="hero">
+      <span class="pill">Produtividade gamificada</span>
+      <h1>Missão do Dia</h1>
+      <p>
+        Um app simples para transformar tarefas em missões, ganhar XP e evoluir com mais motivação.
+      </p>
+    </section>
+
+    <section class="grid">
+      <div class="card status-card">
+        <div class="card-header">
+          <div>
+            <span class="mini-label">Progresso atual</span>
+            <h2>Seu status</h2>
+          </div>
+          <div class="level-badge">
+            Nível <span id="level">1</span>
+          </div>
+        </div>
+
+        <div class="stats">
+          <div class="stat-box">
+            <span>XP atual</span>
+            <strong id="xp">0</strong>
+          </div>
+
+          <div class="stat-box">
+            <span>Próximo nível</span>
+            <strong id="nextLevelXp">100 XP</strong>
+          </div>
+        </div>
+
+        <div class="progress-wrapper">
+          <div class="progress-top">
+            <span>Barra de evolução</span>
+            <span id="progressPercent">0%</span>
+          </div>
+
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressBar"></div>
+          </div>
+        </div>
       </div>
 
-      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#inicio">Início</a></li>
-        <li><a href="#cardapio">Cardápio</a></li>
-        <li><a href="#destaques">Destaques</a></li>
-        <li><a href="#contato">Contato</a></li>
-      </ul>
-    </nav>
-
-    <section class="hero-content container" id="inicio">
-      <div class="hero-text">
-        <p class="tag">Sabor que marca</p>
-        <h1>DIGZ PIZZA - ESFIHA</h1>
-        <p class="hero-description">
-          Um cardápio com cara premium, inspirado no visual amarelo e preto da
-          DIGZ, trazendo pizzas especiais e esfihas doces em uma experiência
-          moderna, elegante e fácil de navegar.
+      <div class="card add-card">
+        <span class="mini-label">Nova missão</span>
+        <h2>Adicionar tarefa</h2>
+        <p class="card-text">
+          Crie uma nova missão e avance no seu nível conforme conclui cada etapa.
         </p>
 
-        <div class="hero-actions">
-          <a href="#cardapio" class="btn btn-primary">Ver Cardápio</a>
-          <a href="#contato" class="btn btn-secondary">Fazer Pedido</a>
-        </div>
-
-        <div class="hero-badges">
-          <div class="badge-card">
-            <strong>+40 sabores</strong>
-            <span>Pizzas especiais</span>
-          </div>
-          <div class="badge-card">
-            <strong>Esfihas doces</strong>
-            <span>Favoritas da casa</span>
-          </div>
-          <div class="badge-card">
-            <strong>Visual premium</strong>
-            <span>Estilo DIGZ</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="hero-visual">
-        <div class="floating-card card-one">
-          <span class="mini-label">Especial</span>
-          <h3>À Moda DIGZ</h3>
-          <p>Lombo canadense, palmito, tomate, cebola, catupiry e mussarela</p>
-          <strong>R$ 74,00</strong>
-        </div>
-
-        <div class="floating-card card-two">
-          <span class="mini-label">Doce</span>
-          <h3>Banana com Chocolate</h3>
-          <p>Esfiha doce com banana e cobertura cremosa de chocolate</p>
-          <strong>R$ 7,60</strong>
-        </div>
-      </div>
-    </section>
-  </header>
-
-  <main>
-    <section class="section section-dark" id="destaques">
-      <div class="container">
-        <div class="section-header">
-          <p class="section-tag">destaques</p>
-          <h2>Os sabores que mais chamam atenção</h2>
-          <p>
-            Seleção inspirada no cardápio das imagens, com aquele visual
-            elegante e chamativo de vitrine premium.
-          </p>
-        </div>
-
-        <div class="highlights-grid">
-          <article class="highlight-box">
-            <span>Pizza</span>
-            <h3>Calábria</h3>
-            <p>Mussarela, calabresa especial e toque de parmesão.</p>
-          </article>
-
-          <article class="highlight-box">
-            <span>Pizza</span>
-            <h3>Pepperoni</h3>
-            <p>Mussarela, pepperoni e parmesão em um sabor intenso.</p>
-          </article>
-
-          <article class="highlight-box">
-            <span>Pizza</span>
-            <h3>5 Queijos</h3>
-            <p>Combinação cremosa e marcante para quem gosta de sabor forte.</p>
-          </article>
-
-          <article class="highlight-box">
-            <span>Esfiha</span>
-            <h3>Sensação</h3>
-            <p>Chocolate com morango em uma opção doce irresistível.</p>
-          </article>
+        <div class="input-area">
+          <input type="text" id="taskInput" placeholder="Ex: estudar HTML por 30 minutos">
+          <button id="addTaskBtn">Adicionar</button>
         </div>
       </div>
     </section>
 
-    <section class="section" id="cardapio">
-      <div class="container">
-        <div class="section-header">
-          <p class="section-tag">cardápio</p>
-          <h2>Explore o nosso menu</h2>
-          <p>
-            Filtre por categoria e encontre rapidamente o sabor ideal.
-          </p>
-        </div>
-
-        <div class="filters">
-          <button class="filter-btn active" data-filter="all">Todos</button>
-          <button class="filter-btn" data-filter="pizza">Pizzas</button>
-          <button class="filter-btn" data-filter="doce">Esfihas Doces</button>
-        </div>
-
-        <div class="menu-grid">
-          <article class="menu-card" data-category="pizza">
-            <div class="menu-top">
-              <span class="menu-number">11</span>
-              <span class="menu-category">Pizza</span>
-            </div>
-            <h3>À Moda DIGZ</h3>
-            <p>Lombo canadense, palmito, fatias de tomate, cebola, catupiry e cobertura com mussarela.</p>
-            <div class="menu-bottom">
-              <strong>R$ 74,00</strong>
-              <button>Adicionar</button>
-            </div>
-          </article>
-
-          <article class="menu-card" data-category="pizza">
-            <div class="menu-top">
-              <span class="menu-number">18</span>
-              <span class="menu-category">Pizza</span>
-            </div>
-            <h3>Brócolis</h3>
-            <p>Brócolis ao alho e óleo, bacon, alho frito, coberta com catupiry.</p>
-            <div class="menu-bottom">
-              <strong>R$ 74,00</strong>
-              <button>Adicionar</button>
-            </div>
-          </article>
-
-          <article class="menu-card" data-category="pizza">
-            <div class="menu-top">
-              <span class="menu-number">19</span>
-              <span class="menu-category">Pizza</span>
-            </div>
-            <h3>Calábria</h3>
-            <p>Mussarela, calabresa especial e salpicado de queijo parmesão.</p>
-            <div class="menu-bottom">
-              <strong>R$ 71,00</strong>
-              <button>Adicionar</button>
-            </div>
-          </article>
-
-          <article class="menu-card" data-category="pizza">
-            <div class="menu-top">
-              <span class="menu-number">20</span>
-              <span class="menu-category">Pizza</span>
-            </div>
-            <h3>Calabresa</h3>
-            <p>Calabresa fatiada com cebola em uma versão clássica e muito pedida.</p>
-            <div class="menu-bottom">
-              <strong>R$ 58,00</strong>
-              <button>Adicionar</button>
-            </div>
-          </article>
-
-          <article class="menu-card" data-category="pizza">
-            <div class="menu-top">
-              <span class="menu-number">23</span>
-              <span class="menu-category">Pizza</span>
-            </div>
-            <h3>Carne Seca</h3>
-            <p>Carne seca desfiada, catupiry e cebola com muito sabor.</p>
-            <div class="menu-bottom">
-              <strong>R$ 74,00</strong>
-              <button>Adicionar</button>
-            </div>
-          </article>
-
-          <article class="menu-card" data-category="pizza">
-            <div class="menu-top">
-              <span class="menu-number">24</span>
-              <span class="menu-category">Pizza</span>
-            </div>
-            <h3>Carne Seca à Moda DIGZ</h3>
-            <p>Carne seca desfiada, catupiry, queijo coalho e um toque especial de melado.</p>
-            <div class="menu-bottom">
-              <strong>R$ 77,00</strong>
-              <button>Adicionar</button>
-            </div>
-          </article>
-
-          <article class="menu-card" data-category="pizza">
-            <div class="menu-top">
-              <span class="menu-number">29</span>
-              <span class="menu-category">Pizza</span>
-            </div>
-            <h3>Frango com Catupiry</h3>
-            <p>Frango desfiado com cobertura cremosa de catupiry.</p>
-            <div class="menu-bottom">
-              <strong>R$ 71,00</strong>
-              <button>Adicionar</button>
-            </div>
-          </article>
-
-          <article class="menu-card" data-category="pizza">
-            <div class="menu-top">
-              <span class="menu-number">33</span>
-              <span class="menu-category">Pizza</span>
-            </div>
-            <h3>Marguerita</h3>
-            <p>Mussarela, fatias de tomate, manjericão e queijo parmesão.</p>
-            <div class="menu-bottom">
-              <strong>R$ 68,00</strong>
-              <button>Adicionar</button>
-            </div>
-          </article>
-
-          <article class="menu-card" data-category="pizza">
-            <div class="menu-top">
-              <span class="menu-number">35</span>
-              <span class="menu-category">Pizza</span>
-            </div>
-            <h3>Mussarela</h3>
-            <p>Mussarela com fatias de tomate em um clássico que nunca falha.</p>
-            <div class="menu-bottom">
-              <strong>R$ 58,00</strong>
-              <button>Adicionar</button>
-            </div>
-          </article>
-
-          <article class="menu-card" data-category="pizza">
-            <div class="menu-top">
-              <span class="menu-number">43</span>
-              <span class="menu-category">Pizza</span>
-            </div>
-            <h3>Pepperoni</h3>
-            <p>Mussarela, pepperoni e parmesão com sabor forte e sofisticado.</p>
-            <div class="menu-bottom">
-              <strong>R$ 74,00</strong>
-              <button>Adicionar</button>
-            </div>
-          </article>
-
-          <article class="menu-card" data-category="pizza">
-            <div class="menu-top">
-              <span class="menu-number">48</span>
-              <span class="menu-category">Pizza</span>
-            </div>
-            <h3>4 Queijos</h3>
-            <p>Mussarela, catupiry, provolone e parmesão em uma combinação cremosa.</p>
-            <div class="menu-bottom">
-              <strong>R$ 74,00</strong>
-              <button>Adicionar</button>
-            </div>
-          </article>
-
-          <article class="menu-card" data-category="pizza">
-            <div class="menu-top">
-              <span class="menu-number">49</span>
-              <span class="menu-category">Pizza</span>
-            </div>
-            <h3>5 Queijos</h3>
-            <p>Mussarela, catupiry, provolone, parmesão e gorgonzola.</p>
-            <div class="menu-bottom">
-              <strong>R$ 75,00</strong>
-              <button>Adicionar</button>
-            </div>
-          </article>
-
-          <article class="menu-card" data-category="doce">
-            <div class="menu-top">
-              <span class="menu-number">200</span>
-              <span class="menu-category">Esfiha Doce</span>
-            </div>
-            <h3>Banana com Chocolate</h3>
-            <p>Banana com cobertura cremosa de chocolate, perfeita para fechar o pedido.</p>
-            <div class="menu-bottom">
-              <strong>R$ 7,60</strong>
-              <button>Adicionar</button>
-            </div>
-          </article>
-
-          <article class="menu-card" data-category="doce">
-            <div class="menu-top">
-              <span class="menu-number">201</span>
-              <span class="menu-category">Esfiha Doce</span>
-            </div>
-            <h3>Banana Flambada</h3>
-            <p>Versão doce com banana caramelizada e visual marcante.</p>
-            <div class="menu-bottom">
-              <strong>R$ 7,60</strong>
-              <button>Adicionar</button>
-            </div>
-          </article>
-
-          <article class="menu-card" data-category="doce">
-            <div class="menu-top">
-              <span class="menu-number">202</span>
-              <span class="menu-category">Esfiha Doce</span>
-            </div>
-            <h3>Brigadeiro</h3>
-            <p>Chocolate com granulado em um clássico brasileiro que todo mundo ama.</p>
-            <div class="menu-bottom">
-              <strong>R$ 7,60</strong>
-              <button>Adicionar</button>
-            </div>
-          </article>
-
-          <article class="menu-card" data-category="doce">
-            <div class="menu-top">
-              <span class="menu-number">203</span>
-              <span class="menu-category">Esfiha Doce</span>
-            </div>
-            <h3>Churro</h3>
-            <p>Inspirada no sabor de churros, cremosa e marcante.</p>
-            <div class="menu-bottom">
-              <strong>R$ 7,60</strong>
-              <button>Adicionar</button>
-            </div>
-          </article>
-
-          <article class="menu-card" data-category="doce">
-            <div class="menu-top">
-              <span class="menu-number">204</span>
-              <span class="menu-category">Esfiha Doce</span>
-            </div>
-            <h3>Choco Duo</h3>
-            <p>Combinação deliciosa para quem curte muito chocolate.</p>
-            <div class="menu-bottom">
-              <strong>R$ 7,60</strong>
-              <button>Adicionar</button>
-            </div>
-          </article>
-
-          <article class="menu-card" data-category="doce">
-            <div class="menu-top">
-              <span class="menu-number">205</span>
-              <span class="menu-category">Esfiha Doce</span>
-            </div>
-            <h3>MM's</h3>
-            <p>Cobertura de chocolate com confeitos coloridos, divertida e chamativa.</p>
-            <div class="menu-bottom">
-              <strong>R$ 7,60</strong>
-              <button>Adicionar</button>
-            </div>
-          </article>
-
-          <article class="menu-card" data-category="doce">
-            <div class="menu-top">
-              <span class="menu-number">206</span>
-              <span class="menu-category">Esfiha Doce</span>
-            </div>
-            <h3>Sensação</h3>
-            <p>Chocolate com morangos em uma das combinações mais queridas.</p>
-            <div class="menu-bottom">
-              <strong>R$ 7,60</strong>
-              <button>Adicionar</button>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section-dark contact-section" id="contato">
-      <div class="container contact-grid">
+    <section class="card tasks-card">
+      <div class="tasks-header">
         <div>
-          <p class="section-tag">contato</p>
-          <h2>Peça agora na DIGZ</h2>
-          <p class="contact-text">
-            Site conceito para apresentar a marca com mais presença, elegância
-            e um cardápio moderno.
-          </p>
+          <span class="mini-label">Lista do dia</span>
+          <h2>Missões ativas</h2>
         </div>
 
-        <div class="contact-card">
-          <h3>Informações</h3>
-          <p><strong>Nome:</strong> DIGZ PIZZA - ESFIHA</p>
-          <p><strong>WhatsApp:</strong> (11) 99999-9999</p>
-          <p><strong>Endereço:</strong> Seu endereço aqui</p>
-          <a href="#" class="btn btn-primary full">Chamar no WhatsApp</a>
+        <div class="task-counter">
+          <span id="taskCount">0</span>
+          <small>tarefas</small>
         </div>
       </div>
+
+      <ul id="taskList"></ul>
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="container footer-content">
-      <p>© 2026 DIGZ PIZZA - ESFIHA. Todos os direitos reservados.</p>
-      <p>Site criado com visual premium,desenvolvido por lorenzo.dev </p> 2
-    </div>
-  </footer>
-
   <script src="script.js"></script>
 </body>
-</html> 
+</html>
