@@ -1,149 +1,441 @@
-const taskInput = document.getElementById("taskInput");
-const addTaskBtn = document.getElementById("addTaskBtn");
-const taskList = document.getElementById("taskList");
-const taskCount = document.getElementById("taskCount");
-
-const xpText = document.getElementById("xp");
-const levelText = document.getElementById("level");
-const nextLevelXpText = document.getElementById("nextLevelXp");
-const progressBar = document.getElementById("progressBar");
-const progressPercent = document.getElementById("progressPercent");
-
-let xp = 0;
-let level = 1;
-let nextLevelXp = 100;
-
-function updateStatus() {
-  xpText.textContent = xp;
-  levelText.textContent = level;
-  nextLevelXpText.textContent = `${nextLevelXp} XP`;
-
-  let progress = (xp / nextLevelXp) * 100;
-
-  if (progress > 100) {
-    progress = 100;
-  }
-
-  progressBar.style.width = `${progress}%`;
-  progressPercent.textContent = `${Math.round(progress)}%`;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-function updateTaskCount() {
-  const total = document.querySelectorAll(".task-item").length;
-  taskCount.textContent = total;
+:root {
+  --bg: #07111f;
+  --bg-secondary: #0b1728;
+  --card: rgba(12, 23, 40, 0.72);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --text: #f8fafc;
+  --muted: #94a3b8;
+  --blue: #4f8cff;
+  --blue-strong: #2563eb;
+  --green: #22c55e;
+  --red: #ef4444;
+  --shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+}
 
-  if (total === 0) {
-    taskList.innerHTML = `<p class="empty-message">Nenhuma missão criada ainda.</p>`;
-  } else {
-    const emptyMessage = taskList.querySelector(".empty-message");
-    if (emptyMessage) {
-      emptyMessage.remove();
-    }
+body {
+  font-family: "Inter", sans-serif;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(79, 140, 255, 0.12), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(34, 197, 94, 0.10), transparent 25%),
+    linear-gradient(135deg, var(--bg), #081423 45%, var(--bg-secondary));
+  color: var(--text);
+  padding: 40px 18px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.bg-glow {
+  position: fixed;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+.glow-1 {
+  top: -60px;
+  left: -60px;
+  background: #2563eb;
+}
+
+.glow-2 {
+  bottom: -70px;
+  right: -70px;
+  background: #22c55e;
+}
+
+.app {
+  max-width: 1050px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.pill {
+  display: inline-block;
+  padding: 9px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #bfd6ff;
+  background: rgba(79, 140, 255, 0.10);
+  border: 1px solid rgba(79, 140, 255, 0.18);
+  margin-bottom: 18px;
+}
+
+.hero h1 {
+  font-size: 56px;
+  font-weight: 800;
+  letter-spacing: -2px;
+  margin-bottom: 12px;
+}
+
+.hero p {
+  max-width: 700px;
+  margin: 0 auto;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 22px;
+  margin-bottom: 22px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 28px;
+  padding: 28px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(16px);
+}
+
+.card-header,
+.tasks-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.mini-label {
+  display: inline-block;
+  color: #8fb7ff;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.card h2,
+.tasks-header h2 {
+  font-size: 28px;
+  letter-spacing: -0.5px;
+}
+
+.level-badge {
+  background: linear-gradient(135deg, var(--blue), var(--green));
+  color: white;
+  padding: 12px 16px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.25);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin: 24px 0 22px;
+}
+
+.stat-box {
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 22px;
+  padding: 20px;
+}
+
+.stat-box span {
+  display: block;
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.stat-box strong {
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.progress-wrapper {
+  margin-top: 12px;
+}
+
+.progress-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 18px;
+  background: rgba(148, 163, 184, 0.14);
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.progress-fill {
+  width: 0%;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #22c55e, #4f8cff);
+  transition: width 0.35s ease;
+}
+
+.add-card h2 {
+  margin-bottom: 10px;
+}
+
+.card-text {
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 18px;
+}
+
+.input-area {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.input-area input {
+  flex: 1;
+  height: 56px;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 18px;
+  padding: 0 18px;
+  color: white;
+  font-size: 15px;
+  outline: none;
+}
+
+.input-area input::placeholder {
+  color: #7f93ad;
+}
+
+.input-area input:focus {
+  border-color: rgba(79, 140, 255, 0.45);
+  box-shadow: 0 0 0 4px rgba(79, 140, 255, 0.08);
+}
+
+.input-area button {
+  height: 56px;
+  border: none;
+  border-radius: 18px;
+  padding: 0 20px;
+  font-size: 15px;
+  font-weight: 700;
+  color: white;
+  background: linear-gradient(135deg, var(--blue), var(--blue-strong));
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 14px 28px rgba(37, 99, 235, 0.24);
+}
+
+.input-area button:hover {
+  transform: translateY(-2px);
+  opacity: 0.96;
+}
+
+.tasks-card {
+  padding-bottom: 18px;
+}
+
+.task-counter {
+  min-width: 95px;
+  background: rgba(79, 140, 255, 0.08);
+  border: 1px solid rgba(79, 140, 255, 0.16);
+  border-radius: 20px;
+  text-align: center;
+  padding: 12px 16px;
+}
+
+.task-counter span {
+  display: block;
+  font-size: 30px;
+  font-weight: 800;
+  color: #b9d2ff;
+}
+
+.task-counter small {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+#taskList {
+  list-style: none;
+  margin-top: 18px;
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 18px;
+  margin-bottom: 14px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.task-item:hover {
+  transform: translateY(-2px);
+  border-color: rgba(79, 140, 255, 0.22);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.task-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+  min-width: 0;
+}
+
+.task-mark {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, var(--green), var(--blue));
+  box-shadow: 0 0 18px rgba(79, 140, 255, 0.22);
+}
+
+.task-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.task-text {
+  font-size: 16px;
+  font-weight: 500;
+  color: #f8fbff;
+  word-break: break-word;
+}
+
+.task-text.done {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+.task-xp {
+  width: fit-content;
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #98f5b6;
+  background: rgba(34, 197, 94, 0.10);
+  border: 1px solid rgba(34, 197, 94, 0.14);
+}
+
+.task-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.complete-btn,
+.delete-btn {
+  border: none;
+  border-radius: 14px;
+  padding: 11px 14px;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.complete-btn:hover,
+.delete-btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.96;
+}
+
+.complete-btn {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  box-shadow: 0 10px 20px rgba(34, 197, 94, 0.18);
+}
+
+.complete-btn:disabled {
+  opacity: 0.72;
+  cursor: default;
+  transform: none;
+}
+
+.delete-btn {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  box-shadow: 0 10px 20px rgba(239, 68, 68, 0.16);
+}
+
+.empty-message {
+  text-align: center;
+  padding: 30px 16px 20px;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+@media (max-width: 860px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero h1 {
+    font-size: 44px;
   }
 }
 
-function checkLevelUp() {
-  while (xp >= nextLevelXp) {
-    xp -= nextLevelXp;
-    level++;
-    nextLevelXp += 50;
-    alert(`Parabéns! Você subiu para o nível ${level}!`);
+@media (max-width: 620px) {
+  body {
+    padding: 24px 14px;
   }
 
-  updateStatus();
+  .card,
+  .tasks-card {
+    padding: 22px;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+  }
+
+  .hero p {
+    font-size: 16px;
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+  .input-area,
+  .task-item,
+  .tasks-header,
+  .card-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .task-actions {
+    justify-content: flex-end;
+  }
 }
-
-function createTask() {
-  const text = taskInput.value.trim();
-
-  if (text === "") {
-    alert("Digite uma missão antes de adicionar.");
-    return;
-  }
-
-  const emptyMessage = taskList.querySelector(".empty-message");
-  if (emptyMessage) {
-    emptyMessage.remove();
-  }
-
-  const taskXp = 20;
-
-  const li = document.createElement("li");
-  li.classList.add("task-item");
-
-  const taskLeft = document.createElement("div");
-  taskLeft.classList.add("task-left");
-
-  const taskMark = document.createElement("span");
-  taskMark.classList.add("task-mark");
-
-  const taskContent = document.createElement("div");
-  taskContent.classList.add("task-content");
-
-  const span = document.createElement("span");
-  span.classList.add("task-text");
-  span.textContent = text;
-
-  const xpBadge = document.createElement("span");
-  xpBadge.classList.add("task-xp");
-  xpBadge.textContent = `+${taskXp} XP`;
-
-  taskContent.appendChild(span);
-  taskContent.appendChild(xpBadge);
-
-  taskLeft.appendChild(taskMark);
-  taskLeft.appendChild(taskContent);
-
-  const taskActions = document.createElement("div");
-  taskActions.classList.add("task-actions");
-
-  const completeBtn = document.createElement("button");
-  completeBtn.classList.add("complete-btn");
-  completeBtn.textContent = "Concluir";
-
-  const deleteBtn = document.createElement("button");
-  deleteBtn.classList.add("delete-btn");
-  deleteBtn.textContent = "Excluir";
-
-  let completed = false;
-
-  completeBtn.addEventListener("click", function () {
-    if (!completed) {
-      span.classList.add("done");
-      xp += taskXp;
-      completed = true;
-      completeBtn.textContent = "Concluída";
-      completeBtn.disabled = true;
-      checkLevelUp();
-    }
-  });
-
-  deleteBtn.addEventListener("click", function () {
-    li.remove();
-    updateTaskCount();
-  });
-
-  taskActions.appendChild(completeBtn);
-  taskActions.appendChild(deleteBtn);
-
-  li.appendChild(taskLeft);
-  li.appendChild(taskActions);
-
-  taskList.appendChild(li);
-
-  taskInput.value = "";
-  taskInput.focus();
-
-  updateTaskCount();
-}
-
-addTaskBtn.addEventListener("click", createTask);
-
-taskInput.addEventListener("keydown", function (event) {
-  if (event.key === "Enter") {
-    createTask();
-  }
-});
-
-updateStatus();
-updateTaskCount();
